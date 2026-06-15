@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LISTA</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #saida {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .item {
+            padding: 6px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .titulo {
+            font-weight: bold;
+            margin-top: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<h1>atividade</h1>
+
+<div id="saida"></div>
+
+<script>
+    let saida = document.getElementById("saida");
+
+    function mostrar(titulo, conteudo) {
+        let t = document.createElement("div");
+        t.className = "titulo";
+        t.textContent = titulo;
+        saida.appendChild(t);
+
+        if (Array.isArray(conteudo)) {
+            conteudo.forEach(item => {
+                let div = document.createElement("div");
+                div.className = "item";
+                div.textContent = item;
+                saida.appendChild(div);
+            });
+        } else {
+            let div = document.createElement("div");
+            div.className = "item";
+            div.textContent = conteudo;
+            saida.appendChild(div);
+        }
+    }
+
+    let lista = ["Leite","Açúcar","Café","Bolo","Brownie","Doce de leite","Bombom","Morango","Banana","Manga"];
+
+    mostrar("Lista inicial", lista);
+
+    lista.pop();
+    lista.pop();
+    lista.pop();
+    mostrar("Após remover 3 elementos", lista);
+
+    lista.sort();
+    mostrar("Lista ordenada", lista);
+
+    let frase = lista.reduce((total, comida) => total + " " + comida);
+    mostrar("Frase", frase);
+
+    let maiusculas = lista.map(comida => comida.toUpperCase());
+    mostrar("Maiúsculas", maiusculas);
+
+    let comidaComA = lista.filter(comida =>
+        comida.toLowerCase().includes("a")
+    );
+    mostrar("Comidas com A", comidaComA);
+
+    let encontrado = lista.find(
+        comida => comida.toLowerCase() === "brownie"
+    );
+    mostrar("Encontrado", encontrado);
+
+    mostrar("Quantidade", lista.length);
+
+    lista.splice(2,0,"picole");
+    mostrar("Adicionando picole", lista);
+
+    lista.splice(1,1);
+    mostrar("Removendo elemento", lista);
+
+    lista.splice(0,1,"bolo");
+    mostrar("Substituindo elemento", lista);
+    
+    let produtos = [
+        { id: 1, nome: "Notebook", preco: 3500.00 },
+        { id: 2, nome: "Mouse", preco: 80.00 },
+        { id: 3, nome: "Teclado", preco: 150.00 },
+        { id: 4, nome: "Monitor", preco: 900.00 },
+        { id: 5, nome: "Headset", preco: 250.00 },
+        { id: 6, nome: "Impressora", preco: 600.00 },
+        { id: 7, nome: "Pendrive", preco: 40.00 },
+        { id: 8, nome: "HD Externo", preco: 350.00 },
+        { id: 9, nome: "Webcam", preco: 180.00 },
+        { id: 10, nome: "Caixa de Som", preco: 120.00 }
+    ];
+
+    let produtosJSON = JSON.stringify(produtos, null, 4);
+
+    mostrar("Produtos (Objeto JavaScript)", produtos.map(
+        produto => `${produto.id} - ${produto.nome} - R$ ${produto.preco}`
+    ));
+
+    mostrar("Produtos em JSON", produtosJSON);
+</script>
+</body>
+</html>
